@@ -1,25 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jun 29 21:30:57 2019
-
 @author: Soham Shah
 """
-
 import cv2,time
-
 import datetime
-
 from imutils.video import VideoStream
 import argparse
-
 import imutils
-"""
-ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--video", help="path to the video file")
-ap.add_argument("-a", "--min-area", type=int, default=500, help="minimum area size")
-args = vars(ap.parse_args())
-"""
+s(ap.parse_args())
 vs = VideoStream(src=0).start()
+
 time.sleep(2.0)
 
 firstFrame = None
@@ -48,8 +38,6 @@ while True:
     cnts = cv2.findContours(thresh.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
     
-    
-    
     for c in cnts:
         
         if cv2.contourArea(c) < 500:
@@ -58,8 +46,7 @@ while True:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         text = "Occupied"
         b.append([datetime.datetime.now(),text])
-        
-        
+           
     cv2.putText(frame, "Room Status: {}".format(text), (10, 20), 
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
     cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S%p"),
