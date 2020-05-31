@@ -1,9 +1,9 @@
 # Playing-Around-with-OpenCV
-A whole bunch of different Image processing Projects using OpenCV library covering major aspects of computer vision.
----
+> A whole bunch of different Image processing Projects using OpenCV library covering major aspects of computer vision.
+
 # Introduction
 ---
-Image processing is a method to perform some operations on an image, in order to get an enhanced image or to extract some useful information from it. It is a type of signal processing in which input is an image and output may be image or characteristics/features associated with that image. 
+> Image processing is a method to perform some operations on an image, in order to get an enhanced image or to extract some useful information from it. It is a type of signal processing in which input is an image and output may be image or characteristics/features associated with that image. 
 Its major applications are in detection of motion, objects, activity, color, edges, shapes, etc. For detecting specific objects, the deep learning nets can also be trained upon by using Transfer learning methods. 
 
 ### Image Processing Projects
@@ -30,6 +30,7 @@ By the use of trained weights, it is implemented to detect different classes of 
 
 #### Contributors 💻 :
 * [Soham Shah](https://github.com/sohamsshah/)
+
 #### Libraries Used
 * cv2
 * Tensorflow
