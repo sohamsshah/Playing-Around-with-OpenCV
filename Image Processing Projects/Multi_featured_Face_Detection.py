@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jun 28 00:43:26 2019
-
 @author: Soham Shah
 """
 
 import cv2 
+#download the xml files fron the internet and load it
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') 
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 smile_cascade = cv2.CascadeClassifier('haarcascade_smile.xml')  
@@ -28,13 +27,10 @@ while 1:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,127,255),2)
         for (sx,sy,sw,sh) in smiles:
             cv2.rectangle(roi_color,(sx,sy),(sx+sw,sy+sh),(0,127,255),2)
-            #text = "Your Smile defines your confidence"
-            #cv2.putText(cap, "Room Status: {}".format(text), (10, 20),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-        #text = "Smile Please!"
-            
-            
-            
-            
+            text = "Your Smile defines your confidence"
+            cv2.putText(cap, "Room Status: {}".format(text), (10, 20),cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+            #text = "Smile Please!"     
+                    
     cv2.imshow('img',img) 
     k = cv2.waitKey(30) & 0xff
     if k == 27: 
