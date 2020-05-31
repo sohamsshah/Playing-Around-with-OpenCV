@@ -1,24 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul  1 00:45:48 2019
-
-@author: Soham Shah
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 30 22:48:13 2019
-
 @author: Soham Shah
 """
 
 import cv2
 import numpy as np
 import imutils
+from sklearn.metrics import pairwise
 
 firstFrame = None
-
-
 
 def run_avg(image, aWeight):
     global firstFrame
@@ -42,12 +32,6 @@ def segment(image,threshold = 25):
         
         return (thresholded,segmented)
         
-
-
-from sklearn.metrics import pairwise
-
-
-
 def count(thresholded,segmented):
     chull = cv2.convexHull(segmented)
     extreme_top = tuple(chull[chull[:,:,1].argmin()][0])
@@ -74,24 +58,16 @@ def count(thresholded,segmented):
             count += 1
     return count
 
-
-
 aWeight = 0.5
 camera = cv2.VideoCapture(0)
 
 top,right,bottom,left = 120,250,400,590
 num_frame = 0
 
-
-
 while True:
     grabbed,frame = camera.read()
-    
-    
     frame = imutils.resize(frame,width=700)
-    
     frame = cv2.flip(frame,1)
-    
     clone = frame.copy()
     height,width = frame.shape[:2]
     roi = frame[top:bottom,right:left]
@@ -100,9 +76,7 @@ while True:
     if num_frame < 30:
         run_avg(gray,aWeight)
     else:
-    
         hand = segment(gray)
-        
         if hand is not None:
             thresholded,segmented = hand
             cv2.drawContours(clone,[segmented + (right,top)], -1,(0,0,255))
@@ -113,19 +87,16 @@ while True:
     #print(a)
     num_frame += 1
     
-    
-    cv2.putText(clone, a , (600,50), cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2)
-        
+    cv2.putText(clone, a , (600,50), cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2)   
     cv2.imshow("Video Feed",clone)
-    
-    
     key = cv2.waitKey(1) & 0xFF
+    
     if key == ord('u'):
         run_avg(gray,aWeight)
-    
     if key == ord('q'):
         break
-camera.release()
+
+        camera.release()
 cv2.destroyAllWindows()
 
 
