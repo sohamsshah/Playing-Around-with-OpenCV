@@ -1,16 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Oct 21 20:46:16 2019
-
 @author: Soham Shah
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct 21 18:29:56 2019
-
-@author: Soham Shah
-"""
 
 import numpy as np
 import cv2
@@ -24,11 +16,7 @@ COLORS = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 #random colors for our bounding boxes. We need 20 different colors for each box
 
 net = cv2.dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt.txt", "MobileNetSSD_deploy.caffemodel")
-"""The net is being loaded by the above code. We need the caffemodel file and the txt file to pass as params in the function.
-It is for deployment for our detection.
-
-"""
-
+#The net is being loaded by the above code. The caffemodel file and the txt file are needed to be passed as params in this function.
 
 image = cv2.imread("img2.jfif") #reads image
 (h, w) = image.shape[:2] #taking image's height and width 
