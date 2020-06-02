@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun  2 15:57:03 2020
-
 @author: Soham Shah
 """
 
 import cv2
 import numpy as np 
   
-cap = cv2.imread('download (1).jpg')
+cap = cv2.imread('#image-path')
     
 hsv = cv2.cvtColor(cap, cv2.COLOR_BGR2HSV) 
 
@@ -28,6 +26,6 @@ indices = np.where(edges != [0])
 coordinates = np.array([indices[0], indices[1]])
 print(coordinates)
 
-cv2.imshow('Original1.jpg',res)
-cv2.imshow("hey",edges)
+cv2.imshow('#img-name',res)
+cv2.imshow("#img-name",edges)
 cv2.waitKey(2)
