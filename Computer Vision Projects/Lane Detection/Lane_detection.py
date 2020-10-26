@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct 26 16:25:01 2020
-
-@author: Soham Shah
-"""
 
 #importings
 import matplotlib.pylab as plt
