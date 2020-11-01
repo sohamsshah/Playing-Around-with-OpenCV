@@ -1,4 +1,5 @@
 # importings
+import matplotlib.pylab as plt
 import cv2
 import numpy as np
 
@@ -34,12 +35,6 @@ def draw_the_lines(img, lines):
 
 
 def image_processing_pipeline(image, region_of_interest_vertices):
-    """
-    The Image Processing Pipeline to effectively manage the flow of computation to be carried out on image
-    Input Params: Target Image, Region of Interest Vertices Array
-    Returns: processed image with detected lane lines
-    """
-
     # convert to gray_scale
     gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     # canny edge detection
@@ -64,30 +59,30 @@ def image_processing_pipeline(image, region_of_interest_vertices):
     image_with_lines = draw_the_lines(image, lines)
     return image_with_lines
 
-
+def click_event(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        param[1].append((x,y))
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        cv2.putText(param[0], ".", (x, y), font, .5, (0, 255, 255), 2)
+        cv2.imshow('image', param[0])
+        print(param[1])
+        
+        
 def main():
-    video_path = "road.mp4"
-    cap = cv2.VideoCapture(video_path)
-
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if frame is None:
-            main()
-        height, width = frame.shape[0], frame.shape[1]
-        # manual ROI
-        region_of_interest_vertices = [
-            (0, height),
-            (width / 2, height / 2),
-            (width, height),
-        ]
-        # image processing pipeline
-        result = image_processing_pipeline(frame, region_of_interest_vertices)
-        cv2.imshow("frame", result)
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
-
-    cap.release()
+    image_path = "road.png"
+    image = cv2.imread(image_path)
+    #image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    height, width = image.shape[0], image.shape[1]
+    cv2.imshow('image',image)
+    # manual ROI
+    region_of_interest_vertices = []
+    cv2.setMouseCallback('image', click_event, [image, region_of_interest_vertices])
+    cv2.waitKey(0)
     cv2.destroyAllWindows()
+    
+    print("WOW" , region_of_interest_vertices)
+
+    
 
 
 if __name__ == "__main__":
