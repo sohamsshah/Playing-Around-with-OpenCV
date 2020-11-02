@@ -27,7 +27,7 @@ def draw_the_lines(img, lines):
 
     for line in lines:
         for x1, y1, x2, y2 in line:
-            cv2.line(blank_image, (x1, y1), (x2, y2), (0, 255, 0), thickness=10)
+            cv2.line(blank_image, (x1, y1), (x2, y2), (0, 255, 0), thickness=5)
 
     img = cv2.addWeighted(img, 0.8, blank_image, 1, 0.0)
     return img
@@ -43,7 +43,7 @@ def image_processing_pipeline(image, region_of_interest_vertices):
     # convert to gray_scale
     gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     # canny edge detection
-    canny_image = cv2.Canny(gray_image, 100, 200)
+    canny_image = cv2.Canny(gray_image, 100, 100)
     # crop image
     cropped_image = region_of_interest(
         canny_image,
@@ -53,20 +53,21 @@ def image_processing_pipeline(image, region_of_interest_vertices):
     # draw lines
     lines = cv2.HoughLinesP(
         cropped_image,
-        rho=6,
+        rho=2,
         theta=np.pi / 180,
         threshold=160,
         lines=np.array([]),
         minLineLength=40,
-        maxLineGap=25,
+        maxLineGap=10,
     )
-
-    image_with_lines = draw_the_lines(image, lines)
-    return image_with_lines
+    if lines is not None:
+        image_with_lines = draw_the_lines(image, lines)
+        return image_with_lines
+    return image
 
 
 def main():
-    video_path = "road.mp4"
+    video_path = "road3.mp4"
     cap = cv2.VideoCapture(video_path)
 
     while cap.isOpened():

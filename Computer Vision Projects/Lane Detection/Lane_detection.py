@@ -28,7 +28,7 @@ def draw_the_lines(img, lines):
 
     for line in lines:
         for x1, y1, x2, y2 in line:
-            cv2.line(blank_image, (x1, y1), (x2, y2), (0, 255, 0), thickness=10)
+            cv2.line(blank_image, (x1, y1), (x2, y2), (0, 255, 0), thickness=5)
 
     img = cv2.addWeighted(img, 0.8, blank_image, 1, 0.0)
     return img
@@ -95,8 +95,9 @@ def ROI(image):
 
 
 def main():
-    image_path = "road.png"
+    image_path = "road4.jpg"
     image = cv2.imread(image_path)
+    image = cv2.resize(image, (500,500))
 
     # getting region of interest by user input
     region_of_interest_vertices = ROI(image)
